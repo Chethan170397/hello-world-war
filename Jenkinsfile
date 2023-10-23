@@ -1,8 +1,8 @@
 pipeline {
-    agent { label 'devopstest' }
+    agent none
     stages {
         stage('Checkout') {
-            
+           agent { label 'devopstest' } 
             
            steps {
                sh 'rm -rf hello-world-war'
@@ -10,7 +10,7 @@ pipeline {
             }
         }
         stage('Build') {
-            
+           agent { label 'devopstest' } 
             
            steps {
              sh 'mvn clean package' 
