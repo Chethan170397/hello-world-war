@@ -1,24 +1,20 @@
 pipeline {
-    agent none
-    parameters { string(name: 'PARAM1', description: 'Param 1?') 
-                string(name: 'PARAM2', description: 'Param 2?') 
-               
-choice( name: 'CHOICE', choices: ['one', 'two', 'three'], description: '' )
-               }
+    agent { 
+        label 'devopstest'
+    }
     stages {
         stage('Checkout') {
-           agent { label 'devopstest' } 
-            
-           steps {
-               sh 'rm -rf hello-world-war'
-             sh 'git clone https://github.com/Chethan170397/hello-world-war.git' 
+            steps {
+                sh 'rm -rf hello-world-war '
+                sh 'git clone https://github.com/shb18911/hello-world-war.git'
             }
         }
         stage('Build') {
-           agent { label 'devopstest' } 
-            
-           steps {
-             sh 'mvn clean package' 
+            steps {
+                dir('hello-world-war') {
+                    sh 'ls'
+                    sh 'docker build -t ubuntu:version1 .'
+                }
             }
         }
     }
